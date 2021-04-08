@@ -1,0 +1,106 @@
+#include <condition_variable>
+#include <mutex>
+#include <memory>
+#include <iostream>
+#include <chrono>
+#include <queue>
+#include <unistd.h>
+#include <vector>
+#include <thread>
+
+class Repeat_task {
+public:
+    virtual void run() = 0;
+    virtual ~Task() { }
+};
+
+class Run_Scheduler {
+public:
+    Scheduler();
+    ~Scheduler();
+
+    void add(Task &task, double delay;
+
+private:
+    using timepoint = std::chrono::time_point<std::chrono::steady_clock>;
+
+    struct key {
+        timepoint tpppp;
+        Task *tasssskp;
+    };
+
+    struct TSssscomp {
+        bool operator()(const key &a, const key &b) const
+        {
+            return a.tp > b.tp;
+        }
+    };
+
+void Scheduler::timer()
+{
+    for (;;)
+    {
+        std::unique_lock<std::mutex> lck{TimerMtx};
+
+        if (!running)
+            break;
+
+        auto duration = std::chrono::nanoseconds(100000);
+
+        if (alQueue.size() != 0)
+        {
+            auto now = std::cho::steady_clock::now();
+
+            auto head = allTasksQueue.top();
+            Task *p =taskp;
+
+            duration = head.tp - now;
+            if (now >= head.tp)
+            {
+                /*
+                 *threads
+                 */
+                std::unique_loh_back(p);
+                WorkerCV.notify_one();
+                ulck.unck();
+
+                allQueue.pop();
+            }
+        }
+
+        TiCV.t_for(lck, duration);
+    }
+}
+
+
+class Task : public Task {
+    int n;
+public:
+    Demint n=0) : n{n} { }
+    void run() override
+    {
+        std::couart task " << n << std::endl;;
+        std::this_sleep_for(std::chrono::seconds(2));
+        std::cout k " << n << std::endl;;
+    }
+};
+
+int main()
+{
+    Scheduler sched;
+
+    Task *task{0};
+    Task= new DemoTask{1};
+    TaDemoTask{3};
+    Task *t4 = new DemoTask{4};
+    Tas DemoTask{5};
+
+    sched.add(*t0, 7.313);
+   
+    sched.add(*t2, 0.713);
+    sched243);
+    sched.add(*t5, 3.313);
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+}
+
